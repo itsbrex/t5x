@@ -2107,7 +2107,7 @@ def get_training_eval_datasets(
     )
 
   if isinstance(mixture_or_task, (airio.Task, airio.Mixture)):
-    data_iter = get_dataset_fn(
+    data_iter = get_dataset_fn(  # pytype: disable=wrong-arg-types
         dataclasses.replace(cfg, batch_size=1),
         shard_id=0,
         num_shards=1,
@@ -2160,7 +2160,7 @@ def get_training_eval_datasets(
     # We set `num_epochs` to be finite to avoid infinite loops on shards that
     # have input examples that are all filtered.
     datasets[task.name] = _repeat_shard_batch_take_cache(
-        get_dataset_fn(
+        get_dataset_fn(  # pytype: disable=wrong-arg-types
             task_cfg,
             shard_id=0,
             num_shards=1,
@@ -2172,7 +2172,7 @@ def get_training_eval_datasets(
 
   if isinstance(mixture_or_task, seqio.Mixture):
     datasets[mixture_or_task.name] = _repeat_shard_batch_take_cache(
-        get_dataset_fn(
+        get_dataset_fn(  # pytype: disable=wrong-arg-types
             dataclasses.replace(cfg, batch_size=1),
             shard_id=0,
             num_shards=1,
